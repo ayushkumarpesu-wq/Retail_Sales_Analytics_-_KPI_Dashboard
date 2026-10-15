@@ -1,0 +1,43 @@
+Net Revenue =
+SUM ( retail_sales[revenue] )
+
+Completed Orders =
+CALCULATE (
+    DISTINCTCOUNT ( retail_sales[invoice_no] ),
+    retail_sales[is_cancellation] = FALSE (),
+    retail_sales[quantity] > 0
+)
+
+Completed-order Revenue =
+CALCULATE (
+    SUM ( retail_sales[revenue] ),
+    FILTER (
+        VALUES ( retail_sales[invoice_no] ),
+        CALCULATE (
+            COUNTROWS ( retail_sales ),
+            retail_sales[quantity] > 0,
+            retail_sales[is_cancellation] = FALSE ()
+        ) > 0
+    )
+)
+
+Average Order Value =
+DIVIDE ( [Completed-order Revenue], [Completed Orders] )
+
+Return Rows =
+CALCULATE (
+    COUNTROWS ( retail_sales ),
+    retail_sales[is_return] = TRUE ()
+)
+
+Return Revenue =
+CALCULATE (
+    SUM ( retail_sales[revenue] ),
+    retail_sales[is_return] = TRUE ()
+)
+
+Flagged Outlier Rows =
+CALCULATE (
+    COUNTROWS ( retail_sales ),
+    retail_sales[is_outlier] = TRUE ()
+)

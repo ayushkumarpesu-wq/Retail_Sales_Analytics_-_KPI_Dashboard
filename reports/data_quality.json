@@ -1,0 +1,10 @@
+{
+  "source_rows": 541909,
+  "duplicate_rows_removed": 5268,
+  "invalid_rows_removed": 2,
+  "clean_rows": 536639,
+  "missing_customer_id_rows_retained": 135035,
+  "return_rows_retained": 1336,
+  "cancellation_rows_retained": 9251,
+  "outlier_rows_flagged_not_removed": 64871
+}
